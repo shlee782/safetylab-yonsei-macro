@@ -28,14 +28,19 @@ def week_of_month(dt):
     return int(ceil(adjusted_dom/7.0))
 
 def main():
-    year = ''
-    month = ''
-    day = ''
-    id = ''
-    name = ''
-    check_type = 0
-    check_list = ['1', '1', '1', '3', '3', '3', '3']
-    lab = ''
+    print('day: ', end='')
+    day = input()
+    print('check type: ', end='')
+    check_type = input()
+
+    f = open('input.txt', 'r')
+
+    year = f.readline().split(' ')[1]
+    month = f.readline().split(' ')[1]
+    id = f.readline().split(' ')[1]
+    name = f.readline().split(' ')[1]
+    check_list = f.readline().rstrip('\n').split(' ')[1:]
+    lab = f.readline().split(' ')[1]
 
     PROJECT_DIR = str(os.path.dirname(os.path.abspath(__file__)))
     driver_path = f'{PROJECT_DIR}/lib/webDriver/'
@@ -88,11 +93,7 @@ def main():
     browser.find_element_by_xpath(check_date_xpath).click()
 
     browser.find_element_by_id('contents').click()
-    if check_type == 0:
-        browser.find_element_by_xpath('//*[@id="subCont"]/div/div[2]/a[1]/img').click()
-
-
-    elif check_type == 1:
+    if check_type == 'a':
         browser.find_element_by_xpath('//*[@id="subCont"]/div/div[2]/a[2]').click()
         browser.find_element_by_xpath('//*[@id="25_' + check_list[0] + '"]').click()
         browser.find_element_by_xpath('//*[@id="26_' + check_list[1] + '"]').click()
@@ -101,11 +102,15 @@ def main():
         browser.find_element_by_xpath('//*[@id="29_' + check_list[4] + '"]').click()
         browser.find_element_by_xpath('//*[@id="30_' + check_list[5] + '"]').click()
         browser.find_element_by_xpath('//*[@id="31_' + check_list[6] + '"]').click()
-        browser.find_element_by_xpath('// *[ @ id = "btnSave"] / img').click()
+        browser.find_element_by_xpath('// *[ @ id = "btnSave"] / img').click()        
 
         alert = browser.switch_to.alert
-        alert.accept()
+        alert.accept()       
+    elif check_type == 'b':
+        browser.find_element_by_xpath('//*[@id="subCont"]/div/div[2]/a[1]/img').click()
     
+    time.sleep(1)
+    browser.refresh()
     time.sleep(2)
 
 if __name__ == "__main__":
