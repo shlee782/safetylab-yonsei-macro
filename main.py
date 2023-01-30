@@ -33,7 +33,7 @@ def main():
     print('check type: ', end='')
     check_type = input()
 
-    f = open('input.txt', 'r')
+    f = open('./input.txt', 'r', encoding='UTF-8')
 
     year = f.readline().split(' ')[1]
     month = f.readline().split(' ')[1]
