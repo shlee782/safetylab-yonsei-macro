@@ -5,7 +5,8 @@
 - - -
 ## 사용법
 
-1. 사용중인 컴퓨터 운영체제와 크롬 버전에 맞춰서 크롬 드라이버를 설치하여, './lib/webDriver'에 둡니다. 파일명은 운영체제에 따라 윈도우일 경우 'chromedriverWindow', 맥일 경우 'chromedriverMac', 리눅스일 경우 'chromedriverLinux'로 설정하면 됩니다. (https://chromedriver.chromium.org/downloads)
+1. 사용중인 컴퓨터 운영체제와 크롬 버전에 맞춰서 크롬 드라이버를 다운로드하여, './lib/webDriver'에 둡니다. 파일명은 운영체제에 따라 윈도우일 경우 'chromedriverWindow', 맥일 경우 'chromedriverMac', 리눅스일 경우 'chromedriverLinux'로 설정하면 됩니다.
+* 크롬 드라이버 다운로드 링크: https://chromedriver.chromium.org/downloads
 
 2. input.txt에 매크로 사용 시 필요한 내용들을 입력합니다. (각 사항의 colon(:) 다음에 한 칸 띄우고 내용을 적습니다.)
 - year, month, id, nam에 각각 점검 연도, 점검 월, 학번, 이름을 적습니다.
