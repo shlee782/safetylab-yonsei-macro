@@ -6,7 +6,8 @@ import pandas as pd
 from math import ceil
 
 import selenium.webdriver as webdriver
-from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 from datetime import datetime
 
@@ -59,28 +60,29 @@ def main():
         print(f'[{sys.platform}] not supported. Check your system platform.')
         raise Exception()
 
-    browser = webdriver.Chrome(driver_path)
-    browser.get('https://safetylab.yonsei.ac.kr')
+    browser = webdriver.Chrome()
+    browser.get('https://safetylab.yonsei.ac.kr/Account/LogOn?ReturnUrl=%2f')
     parent = browser.current_window_handle
     removePopup(browser=browser, parent=parent)
     # browser.implicitly_wait(1)
 
-    elm = browser.find_element_by_name('UniqueKey')
+    elm = browser.find_element(By.NAME, 'UniqueKey')
     elm.send_keys(id)
-    elm = browser.find_element_by_name('UserName')
+    elm = browser.find_element(By.NAME, 'UserName')
     elm.send_keys(name)
-    #elm.send_keys(Keys.RETURN)
-    elm = browser.find_element_by_xpath('//*[@id="whole_wrap"]/div[2]/div/div[2]/div[1]/div/form/div/div/a/img')
+    #elm.send_keys(Keys.RETURN)``
+    elm = browser.find_element(By.XPATH, '//*[@id="whole_wrap"]/div[2]/div/div[2]/div[1]/div/form/div/div/a/img')
     elm.click()
     browser.implicitly_wait(1)
     removePopup(browser=browser, parent=parent)
 
+    time.sleep(1)
 
-    elm = browser.find_element_by_xpath('//*[@id="whole_wrap"]/div[1]/div/div[5]/ul/li[1]/a')
+    elm = browser.find_element(By.XPATH, '//*[@id="whole_wrap"]/div[1]/div/div[5]/ul/li[1]/a')
     elm.click()
     removePopup(browser=browser, parent=parent)
 
-    elm = browser.find_element_by_xpath('//*[@id="ddlMyLabList"]/option[' + lab + ']')
+    elm = browser.find_element(By.XPATH, '//*[@id="ddlMyLabList"]/option[' + lab + ']')
     elm.click()
 
     check_date = pd.Timestamp(year+'-'+month+'-'+day)
@@ -90,28 +92,28 @@ def main():
 
     check_date_xpath = '//*[@id="dtpicker"]/div/table/tbody/tr[' + str(weeknum) + ']/td[' + str(daynum+1) + ']/a'
 
-    browser.find_element_by_xpath(check_date_xpath).click()
+    browser.find_element(By.XPATH, check_date_xpath).click()
 
-    browser.find_element_by_id('contents').click()
+    browser.find_element(By.ID, 'contents').click()
     if check_type == 'a':
-        browser.find_element_by_xpath('//*[@id="subCont"]/div/div[2]/a[2]').click()
-        browser.find_element_by_xpath('//*[@id="25_' + check_list[0] + '"]').click()
-        browser.find_element_by_xpath('//*[@id="26_' + check_list[1] + '"]').click()
-        browser.find_element_by_xpath('//*[@id="27_' + check_list[2] + '"]').click()
-        browser.find_element_by_xpath('//*[@id="28_' + check_list[3] + '"]').click()
-        browser.find_element_by_xpath('//*[@id="29_' + check_list[4] + '"]').click()
-        browser.find_element_by_xpath('//*[@id="30_' + check_list[5] + '"]').click()
-        browser.find_element_by_xpath('//*[@id="31_' + check_list[6] + '"]').click()
-        browser.find_element_by_xpath('// *[ @ id = "btnSave"] / img').click()        
+        browser.find_element(By.XPATH, '//*[@id="subCont"]/div/div[2]/a[2]').click()
+        browser.find_element(By.XPATH, '//*[@id="25_' + check_list[0] + '"]').click()
+        browser.find_element(By.XPATH, '//*[@id="26_' + check_list[1] + '"]').click()
+        browser.find_element(By.XPATH, '//*[@id="27_' + check_list[2] + '"]').click()
+        browser.find_element(By.XPATH, '//*[@id="28_' + check_list[3] + '"]').click()
+        browser.find_element(By.XPATH, '//*[@id="29_' + check_list[4] + '"]').click()
+        browser.find_element(By.XPATH, '//*[@id="30_' + check_list[5] + '"]').click()
+        browser.find_element(By.XPATH, '//*[@id="31_' + check_list[6] + '"]').click()
+        browser.find_element(By.XPATH, '// *[ @ id = "btnSave"] / img').click()        
 
         alert = browser.switch_to.alert
         alert.accept()       
     elif check_type == 'b':
-        browser.find_element_by_xpath('//*[@id="subCont"]/div/div[2]/a[1]/img').click()
+        browser.find_element(By.XPATH, '//*[@id="subCont"]/div/div[2]/a[1]/img').click()
     
     time.sleep(1)
     browser.refresh()
-    time.sleep(2)
+    time.sleep(5)
 
 if __name__ == "__main__":
     main()
