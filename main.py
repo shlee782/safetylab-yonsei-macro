@@ -43,23 +43,6 @@ def main():
     check_list = f.readline().rstrip('\n').split(' ')[1:]
     lab = f.readline().split(' ')[1]
 
-    PROJECT_DIR = str(os.path.dirname(os.path.abspath(__file__)))
-    driver_path = f'{PROJECT_DIR}/lib/webDriver/'
-
-    platform = sys.platform
-    if platform == 'darwin':
-        print('System platform : Darwin')
-        driver_path += 'chromedriverMac'
-    elif platform == 'linux':
-        print('System platform : Linux')
-        driver_path += 'chromedriverLinux'
-    elif platform == 'win32':
-        print('System platform : Window')
-        driver_path += 'chromedriverWindow'
-    else:
-        print(f'[{sys.platform}] not supported. Check your system platform.')
-        raise Exception()
-
     browser = webdriver.Chrome()
     browser.get('https://safetylab.yonsei.ac.kr/Account/LogOn?ReturnUrl=%2f')
     parent = browser.current_window_handle
